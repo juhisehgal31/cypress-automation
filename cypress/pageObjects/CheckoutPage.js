@@ -1,26 +1,31 @@
 class CheckoutPage {
     fillShippingDetails() {
-    
-      cy.get('body').then(($body) => {
-        const newAddressSpan = $body.find('.shipping-address-item.selected-item');
-      
-        // if (newAddressSpan.length > 0 && newAddressSpan.is(':visible')) {
-        //   // If element is found and visible
-        //   cy.log('✅ "New Address" is visible, clicking tablerate option');
-          cy.get('input[value="tablerate_bestway"]').click();
-        // } else {
-        //   // Else fill the address form
-        //   cy.log('✏️ Filling in shipping address details...');
-        //   cy.get('#M3058AT').type('123 Test St');
-        //   cy.get('#XNFWWD9').type('Test City');
-        //   cy.get('#JJDN41I').select(1);
-        //   cy.get('#UFY2W5D').type('12345');
-        //   cy.get('#LWJUE9X').select('United States');
-        //   cy.get('#R4B1KCJ').type('1234567890');
-        //   cy.get('input[value="tablerate_bestway"]').click();
 
-        // }
-      });
+      cy.get('input[value="tablerate_bestway"]', { timeout: 30000 })
+  .should('be.visible')
+  .click();
+
+    
+      // cy.get('body').then(($body) => {
+      //   const newAddressSpan = $body.find('.shipping-address-item.selected-item');
+      
+      //   // if (newAddressSpan.length > 0 && newAddressSpan.is(':visible')) {
+      //   //   // If element is found and visible
+      //   //   cy.log(' "New Address" is visible, clicking tablerate option');
+      //     cy.get('input[value="tablerate_bestway"]').click();
+      //   // } else {
+      //   //   // Else fill the address form
+      //   //   cy.log('✏️ Filling in shipping address details...');
+      //   //   cy.get('#M3058AT').type('123 Test St');
+      //   //   cy.get('#XNFWWD9').type('Test City');
+      //   //   cy.get('#JJDN41I').select(1);
+      //   //   cy.get('#UFY2W5D').type('12345');
+      //   //   cy.get('#LWJUE9X').select('United States');
+      //   //   cy.get('#R4B1KCJ').type('1234567890');
+      //   //   cy.get('input[value="tablerate_bestway"]').click();
+
+      //   // }
+      // });
       
       
      

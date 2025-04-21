@@ -1,0 +1,21 @@
+Test Case ID,Title,Precondition,Steps,Expected Result,Priority
+TC001,Verify user registration with valid data,User is on the registration page,"1. Navigate to the website
+2. Click 'Create an Account'
+3. Fill in valid details (First Name, Last Name, Email, Password)
+4. Click 'Create an Account'",User is successfully registered and redirected to the My Account page,High
+TC002,Verify login functionality with valid credentials,A user account already exists,"1. Click 'Sign In'
+2. Enter registered email and password
+3. Click 'Sign In'",User is redirected to dashboard and greeted with their name,High
+TC003,Verify that product can be added to cart and reflected correctly,User is logged in,"1. Navigate to 'Men > Tops > Jackets'
+2. Click on a product
+3. Select size & color
+4. Click 'Add to Cart'
+5. Click on Cart icon","Product is visible in cart with correct name, size, color, and price",High
+TC004,Verify product search using search bar,User is on homepage,"1. Enter product name (e.g., 'Hoodie') in the search bar
+2. Click Search",Search results page shows relevant products matching the search keyword,High
+TC005,Verify complete checkout process with valid shipping and payment details,User is logged in and has items in the cart,"1. Click on Cart
+2. Click 'Proceed to Checkout'
+3. Fill shipping address
+4. Choose shipping method
+5. Fill payment details
+6. Click 'Place Order'",Order confirmation page is displayed with order number and details,Critical

@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "25222a63-c9b1-4416-b5c9-98c33fd0bb91",
+		"name": "Petstore:- GET Request Tests",
+		"description": "Test scenarios for fetching pet details using GET /pet/{petId}",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18850383"
+	},
+	"item": [
+		{
+			"name": "Valid Pet ID - 2825",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Pet ID is 2825\", function () {",
+							"    pm.expect(jsonData.id).to.eql(2825);",
+							"});",
+							"",
+							"pm.test(\"Pet name is Oreo\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"Oreo\");",
+							"});",
+							"",
+							"pm.test(\"Status is available\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"available\");",
+							"});",
+							"",
+							"pm.test(\"Category is Cats\", function () {",
+							"    pm.expect(jsonData.category).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.category).to.have.property(\"name\", \"Cats\");",
+							"});",
+							"",
+							"pm.test(\"Photo URL is correct\", function () {",
+							"    pm.expect(jsonData.photoUrls).to.include(\"https://example.com/photo.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Tag is friendly\", function () {",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"name\", \"friendly\");",
+							"});",
+							"",
+							"pm.test(\"Data types are valid\", function () {",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"    pm.expect(jsonData.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.status).to.be.a(\"string\");",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\");",
+							"    pm.expect(jsonData.tags).to.be.an(\"array\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/2825",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"2825"
+					]
+				},
+				"description": "Fetch pet details using a valid pet ID (12345). Expects 200 and full pet data."
+			},
+			"response": []
+		},
+		{
+			"name": "String Pet ID - abcd",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Error type is 'unknown'\", function () {",
+							"    pm.expect(jsonData.type).to.eql(\"unknown\");",
+							"});",
+							"",
+							"pm.test(\"Error message mentions NumberFormatException\", function () {",
+							"    pm.expect(jsonData.message).to.include(\"NumberFormatException\");",
+							"    pm.expect(jsonData.message).to.include(\"apple\");",
+							"});",
+							"",
+							"pm.test(\"Error code is 404\", function () {",
+							"    pm.expect(jsonData.code).to.eql(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/apple",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"apple"
+					]
+				},
+				"description": "Fetch pet details using a valid pet ID (12345). Expects 200 and full pet data."
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Pet ID - 8777675",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Error message says 'Pet not found'\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"Pet not found\");",
+							"});",
+							"",
+							"pm.test(\"Response type is 'error'\", function () {",
+							"    pm.expect(jsonData.type).to.eql(\"error\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/8777675",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"8777675"
+					]
+				},
+				"description": "Use a string as pet ID. Expects 404 not found."
+			},
+			"response": []
+		},
+		{
+			"name": "Negative Pet ID -58500",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Error message says 'Pet not found'\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"Pet not found\");",
+							"});",
+							"",
+							"pm.test(\"Response type is 'error'\", function () {",
+							"    pm.expect(jsonData.type).to.eql(\"error\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/-58500",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						"-58500"
+					]
+				},
+				"description": "Fetch pet details using a non-existent pet ID. Expects 404 not found."
+			},
+			"response": []
+		},
+		{
+			"name": "Missing Pet ID (Empty)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405 for missing petId\", function () {",
+							"    pm.expect(pm.response.code).to.eql(405);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet/",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet",
+						""
+					]
+				},
+				"description": "Call the endpoint without passing pet ID. Expects 404 or 405."
+			},
+			"response": []
+		}
+	]
+}

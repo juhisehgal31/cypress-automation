@@ -1,0 +1,650 @@
+{
+	"info": {
+		"_postman_id": "c50b593c-0a2a-46ba-98c6-7f03a5404607",
+		"name": "Petstore:- Post Request Tests",
+		"description": "Comprehensive test cases for the POST /pet endpoint.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18850383"
+	},
+	"item": [
+		{
+			"name": "Valid Pet Creation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"ID is correct\", function () {",
+							"    pm.expect(jsonData.id).to.eql(58500);",
+							"});",
+							"",
+							"pm.test(\"Name is correct\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"Oreo\");",
+							"});",
+							"",
+							"pm.test(\"Category is correct\", function () {",
+							"    pm.expect(jsonData.category).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.category).to.have.property(\"name\", \"Cats\");",
+							"});",
+							"",
+							"pm.test(\"Photo URLs is correct\", function () {",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\").that.includes(\"https://example.com/photo.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Tags are correct\", function () {",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"name\", \"friendly\");",
+							"});",
+							"",
+							"pm.test(\"Status is 'available'\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"available\");",
+							"});",
+							"",
+							"// Optional: Check data types",
+							"pm.test(\"Data types are valid\", function () {",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"    pm.expect(jsonData.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.category.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\");",
+							"    pm.expect(jsonData.tags).to.be.an(\"array\");",
+							"    pm.expect(jsonData.status).to.be.a(\"string\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 58500, \"category\": {\"id\": 1, \"name\": \"Cats\"}, \"name\": \"Oreo\", \"photoUrls\": [\"https://example.com/photo.jpg\"], \"tags\": [{\"id\": 1, \"name\": \"friendly\"}], \"status\": \"available\"}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Add a new pet with all required and optional fields."
+			},
+			"response": []
+		},
+		{
+			"name": "Pet Creation with negative ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Returned ID is not the negative ID sent\", function () {",
+							"    pm.expect(jsonData.id).to.not.eql(-98989);",
+							"});",
+							"",
+							"pm.test(\"Returned ID is a positive number\", function () {",
+							"    pm.expect(jsonData.id).to.be.above(0);",
+							"});",
+							"",
+							"pm.test(\"Name is correct\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"Maxi\");",
+							"});",
+							"",
+							"pm.test(\"Category is correct\", function () {",
+							"    pm.expect(jsonData.category).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.category).to.have.property(\"name\", \"Dogs\");",
+							"});",
+							"",
+							"pm.test(\"Photo URLs is correct\", function () {",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\").that.includes(\"https://example.com/photo.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Tags are correct\", function () {",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"name\", \"overfriendly\");",
+							"});",
+							"",
+							"pm.test(\"Status is 'available'\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"available\");",
+							"});",
+							"",
+							"// Optional: Check data types",
+							"pm.test(\"Data types are valid\", function () {",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"    pm.expect(jsonData.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.category.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\");",
+							"    pm.expect(jsonData.tags).to.be.an(\"array\");",
+							"    pm.expect(jsonData.status).to.be.a(\"string\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": -98989, \"category\": {\"id\": 1, \"name\": \"Dogs\"}, \"name\": \"Maxi\", \"photoUrls\": [\"https://example.com/photo.jpg\"], \"tags\": [{\"id\": 1, \"name\": \"overfriendly\"}], \"status\": \"available\"}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Add a new pet with all required and optional fields."
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Data Type for ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Error message is shown\", function () {",
+							"    const resText = pm.response.text().toLowerCase();",
+							"    pm.expect(resText).to.include.oneOf([\"error\", \"invalid\", \"exception\", \"bad\", \"unknown\"]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": \"test\", \"category\": {\"id\": 1, \"name\": \"Cats\"}, \"name\": \"Oreo\", \"photoUrls\": [\"https://example.com/photo.jpg\"], \"tags\": [{\"id\": 1, \"name\": \"friendly\"}], \"status\": \"available\"}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Provide a string instead of an integer for the `id` field."
+			},
+			"response": []
+		},
+		{
+			"name": "Duplicate Pet ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"ID is correct\", function () {",
+							"    pm.expect(jsonData.id).to.eql(58500);",
+							"});",
+							"",
+							"pm.test(\"Name is correct\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"Oreo\");",
+							"});",
+							"",
+							"pm.test(\"Category is correct\", function () {",
+							"    pm.expect(jsonData.category).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.category).to.have.property(\"name\", \"Dogs\");",
+							"});",
+							"",
+							"pm.test(\"Photo URLs is correct\", function () {",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\").that.includes(\"https://example.com/photo.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Tags are correct\", function () {",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"name\", \"friendly\");",
+							"});",
+							"",
+							"pm.test(\"Status is 'available'\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"available\");",
+							"});",
+							"",
+							"// Optional: Check data types",
+							"pm.test(\"Data types are valid\", function () {",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"    pm.expect(jsonData.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.category.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\");",
+							"    pm.expect(jsonData.tags).to.be.an(\"array\");",
+							"    pm.expect(jsonData.status).to.be.a(\"string\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 58500, \"category\": {\"id\": 1, \"name\": \"Dogs\"}, \"name\": \"Oreo\", \"photoUrls\": [\"https://example.com/photo.jpg\"], \"tags\": [{\"id\": 1, \"name\": \"friendly\"}], \"status\": \"available\"}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Attempt to add a pet with an `id` that already exists."
+			},
+			"response": []
+		},
+		{
+			"name": "Missing Body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Auto-generated ID is present\", function () {",
+							"    pm.expect(jsonData).to.have.property(\"id\");",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"});",
+							"",
+							"pm.test(\"Tags and photoUrls are empty\", function () {",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\").that.is.empty;",
+							"    pm.expect(jsonData.tags).to.be.an(\"array\").that.is.empty;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Omit the `photoUrls` field entirely."
+			},
+			"response": []
+		},
+		{
+			"name": "Special Characters in Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"ID is correct\", function () {",
+							"    pm.expect(jsonData.id).to.eql(58500);",
+							"});",
+							"",
+							"pm.test(\"Name is correct\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"S@F@r!\");",
+							"});",
+							"",
+							"pm.test(\"Category is correct\", function () {",
+							"    pm.expect(jsonData.category).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.category).to.have.property(\"name\", \"Lion\");",
+							"});",
+							"",
+							"pm.test(\"Photo URLs is correct\", function () {",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\").that.includes(\"https://example.com/photo.jpg\");",
+							"});",
+							"",
+							"pm.test(\"Tags are correct\", function () {",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"id\", 1);",
+							"    pm.expect(jsonData.tags[0]).to.have.property(\"name\", \"friendly\");",
+							"});",
+							"",
+							"pm.test(\"Status is 'available'\", function () {",
+							"    pm.expect(jsonData.status).to.eql(\"available\");",
+							"});",
+							"",
+							"// Optional: Check data types",
+							"pm.test(\"Data types are valid\", function () {",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"    pm.expect(jsonData.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.category.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\");",
+							"    pm.expect(jsonData.tags).to.be.an(\"array\");",
+							"    pm.expect(jsonData.status).to.be.a(\"string\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\": 58500, \"category\": {\"id\": 1, \"name\": \"Lion\"}, \"name\": \"S@F@r!\", \"photoUrls\": [\"https://example.com/photo.jpg\"], \"tags\": [{\"id\": 1, \"name\": \"friendly\"}], \"status\": \"available\"}"
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Include special characters in the `name` field."
+			},
+			"response": []
+		},
+		{
+			"name": "Large Payload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is under 3000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"",
+							"let jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Pet ID is correct\", function () {",
+							"    pm.expect(jsonData.id).to.eql(58500);",
+							"});",
+							"",
+							"pm.test(\"Pet name is correct\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"Rocky\");",
+							"});",
+							"",
+							"pm.test(\"Field types are correct\", function () {",
+							"    pm.expect(jsonData.id).to.be.a(\"number\");",
+							"    pm.expect(jsonData.name).to.be.a(\"string\");",
+							"    pm.expect(jsonData.photoUrls).to.be.an(\"array\");",
+							"    pm.expect(jsonData.tags).to.be.an(\"array\");",
+							"    pm.expect(jsonData.status).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Has 15 photo URLs\", function () {",
+							"    pm.expect(jsonData.photoUrls.length).to.eql(15);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Has 15 tags\", function () {",
+							"    pm.expect(jsonData.tags.length).to.eql(15);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 58500,\n  \"name\": \"Rocky\",\n  \"photoUrls\": [\n    \"https://example.com/photo1.jpg\",\n    \"https://example.com/photo2.jpg\",\n    \"https://example.com/photo3.jpg\",\n    \"https://example.com/photo4.jpg\",\n    \"https://example.com/photo5.jpg\",\n    \"https://example.com/photo6.jpg\",\n    \"https://example.com/photo7.jpg\",\n    \"https://example.com/photo8.jpg\",\n    \"https://example.com/photo9.jpg\",\n    \"https://example.com/photo10.jpg\",\n    \"https://example.com/photo11.jpg\",\n    \"https://example.com/photo12.jpg\",\n    \"https://example.com/photo13.jpg\",\n    \"https://example.com/photo14.jpg\",\n    \"https://example.com/photo15.jpg\"\n  ],\n  \"tags\": [\n    { \"id\": 1, \"name\": \"tag1\" },\n    { \"id\": 2, \"name\": \"tag2\" },\n    { \"id\": 3, \"name\": \"tag3\" },\n    { \"id\": 4, \"name\": \"tag4\" },\n    { \"id\": 5, \"name\": \"tag5\" },\n    { \"id\": 6, \"name\": \"tag6\" },\n    { \"id\": 7, \"name\": \"tag7\" },\n    { \"id\": 8, \"name\": \"tag8\" },\n    { \"id\": 9, \"name\": \"tag9\" },\n    { \"id\": 10, \"name\": \"tag10\" },\n    { \"id\": 11, \"name\": \"tag11\" },\n    { \"id\": 12, \"name\": \"tag12\" },\n    { \"id\": 13, \"name\": \"tag13\" },\n    { \"id\": 14, \"name\": \"tag14\" },\n    { \"id\": 15, \"name\": \"tag15\" }\n  ],\n  \"status\": \"available\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'https://petstore.swagger.io/v2/pet' \\\n--header 'Content-Type: application/json' \\\n--data '{\n  \"id\": 12399,\n  \"name\": \"Rocky\",\n  \"photoUrls\": [\n    \"https://example.com/photo1.jpg\",\n    \"https://example.com/photo2.jpg\",\n    \"https://example.com/photo3.jpg\",\n    \"https://example.com/photo4.jpg\",\n    \"https://example.com/photo5.jpg\",\n    \"https://example.com/photo6.jpg\",\n    \"https://example.com/photo7.jpg\",\n    \"https://example.com/photo8.jpg\",\n    \"https://example.com/photo9.jpg\",\n    \"https://example.com/photo10.jpg\",\n    \"https://example.com/photo11.jpg\",\n    \"https://example.com/photo12.jpg\",\n    \"https://example.com/photo13.jpg\",\n    \"https://example.com/photo14.jpg\",\n    \"https://example.com/photo15.jpg\"\n  ],\n  \"tags\": [\n    { \"id\": 1, \"name\": \"tag1\" },\n    { \"id\": 2, \"name\": \"tag2\" },\n    { \"id\": 3, \"name\": \"tag3\" },\n    { \"id\": 4, \"name\": \"tag4\" },\n    { \"id\": 5, \"name\": \"tag5\" },\n    { \"id\": 6, \"name\": \"tag6\" },\n    { \"id\": 7, \"name\": \"tag7\" },\n    { \"id\": 8, \"name\": \"tag8\" },\n    { \"id\": 9, \"name\": \"tag9\" },\n    { \"id\": 10, \"name\": \"tag10\" },\n    { \"id\": 11, \"name\": \"tag11\" },\n    { \"id\": 12, \"name\": \"tag12\" },\n    { \"id\": 13, \"name\": \"tag13\" },\n    { \"id\": 14, \"name\": \"tag14\" },\n    { \"id\": 15, \"name\": \"tag15\" }\n  ],\n  \"status\": \"available\"\n}'\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid JSON Format",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Error message is shown\", function () {",
+							"    const resText = pm.response.text().toLowerCase();",
+							"    pm.expect(resText).to.include.oneOf([\"error\", \"invalid\", \"exception\", \"bad\", \"unknown\"]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":12352,\"name\":\"Daisy\",\"photoUrls\":[\"https://example.com/photo.jpg\"],\"status\":\"available\""
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/pet",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"pet"
+					]
+				},
+				"description": "Send a request with malformed JSON."
+			},
+			"response": []
+		}
+	]
+}
