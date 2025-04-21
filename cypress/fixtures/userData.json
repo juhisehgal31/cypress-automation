@@ -1,0 +1,17 @@
+{
+  "email": "juhitest748482@yopmail.com",
+  "password": "Test@1234",
+  "firstName": "Juhi",
+  "lastName": "Test",
+  "sku1": "Beaumont Summit Kit",
+  "sku1Color": "Yellow",
+  "sku1Size": "XL",
+  "sku1Qty": "5",
+  "sku2": "Crown Summit Backpack",
+  "sku2Qty": "2",
+  "sku1Price": "$42.00",
+  "sku2Price": "$38.00",
+  "expectedSubTotal": "$286.00",
+  "orderId": "000050886",
+  "newUserEmail": "juhitest893409@yopmail.com"
+}
